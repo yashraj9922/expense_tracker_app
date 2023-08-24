@@ -5,6 +5,7 @@ const uuid = Uuid();
 
 enum Category { food, travel, leisure, work }
 // allows to create custom type....combination of predefined allowed values
+
 class Expense {
   Expense({
     required this.date,
@@ -12,6 +13,7 @@ class Expense {
     required this.title,
     required this.category,
   }) : id = uuid.v4();// in dart "initializer Lists" can be used to initialize class properties (like "id") with values that are not receieved by constructor function arguments 
+  
   final String id;
   final String title;
   final double amount;
