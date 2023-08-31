@@ -1,5 +1,5 @@
-import 'package:expense_tracker_app/expenses_list.dart';
-import 'package:expense_tracker_app/modals/expense.dart';
+import 'package:expense_tracker_app/Widgets/Expenses_list/expenses_list.dart';
+import 'package:expense_tracker_app/Models/expense.dart';
 import 'package:flutter/material.dart';
 
 class Expenses extends StatefulWidget {
@@ -31,7 +31,9 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           const Text("The Chart"),
-          ExpensesList(expenses: _registeredExpenses),
+          Expanded(
+            child: ExpensesList(expenses: _registeredExpenses),
+          ),// Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
         ],
       ),
     );
