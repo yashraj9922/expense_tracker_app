@@ -28,9 +28,20 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Expenses Tracker App"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.add_card),
+          ),
+        ],
+      ),
       body: Column(
         children: [
+          // const SizedBox(height: 20),
           const Text("The Chart"),
+          // const SizedBox(height: 20),
           Expanded(
             child: ExpensesList(expenses: _registeredExpenses),
           ), // Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
