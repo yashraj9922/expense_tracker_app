@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/Models/expense.dart';
+import 'package:expense_tracker_app/Widgets/Expenses_list/expense_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesList extends StatelessWidget {
@@ -15,10 +16,13 @@ class ExpensesList extends StatelessWidget {
     // ); --> always scrollable by default..
 
     //ListView.builder(); --> creates List only when they are visible or about to be visible and not when they are invisible
-    return ListView.builder( // 
-      itemCount: expenses.length, // itemCount refers to how many Lists items will be rendered
+    return ListView.builder(
+      //
+      itemCount: expenses
+          .length, // itemCount refers to how many Lists items will be rendered
       itemBuilder: (ctx, index) {
-        return Text(expenses[index].title);
+        // return Text(expenses[index].title);
+        return ExpenseItem(expense: expenses[index]);
       },
       /* you can pass functions as parameters  */
     );

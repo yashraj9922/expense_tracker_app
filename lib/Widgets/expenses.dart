@@ -16,12 +16,12 @@ class _ExpensesState extends State<Expenses> {
     Expense(
         date: DateTime.now(),
         amount: 100,
-        title: "title",
+        title: "title1",
         category: Category.travel),
     Expense(
         date: DateTime.now(),
         amount: 10.42,
-        title: "title1",
+        title: "title2",
         category: Category.work),
   ];
 
@@ -33,7 +33,7 @@ class _ExpensesState extends State<Expenses> {
           const Text("The Chart"),
           Expanded(
             child: ExpensesList(expenses: _registeredExpenses),
-          ),// Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
+          ), // Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
         ],
       ),
     );
