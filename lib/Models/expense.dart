@@ -1,14 +1,27 @@
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
+
+final formatter = DateFormat.yMd();
 
 // uuid helps in generating unique IDs
+// need to build new id whenever the new Expense parameter is created...uuid(package in flutter)
 const uuid = Uuid();
 
 enum Category { food, travel, leisure, work }
 // allows to create custom type....combination of predefined allowed values
 //fixed sets of values
 
+const categoryIcons = {
+  //mapping icons with enum keys i.e., category item
+  Category.food: Icons.lunch_dining,
+  Category.travel: Icons.flight_takeoff,
+  Category.leisure: Icons.movie,
+  Category.work: Icons.work,
+};
+
 class Expense {
-  Expense({
+  Expense({ 
     required this.date,
     required this.amount,
     required this.title,
@@ -20,5 +33,13 @@ class Expense {
   final double amount;
   final DateTime date;
   final Category category;
-  // need to build new id whenever the new Expense parameter is created...uuid(package in flutter)
+
+  // Using getters in place of methods[getFormatteddate();]
+  String get formattedDate {
+    return formatter.format(date);
+  }
+
+  getFormatteddate(){
+    return formatter.format(date);
+  }
 }

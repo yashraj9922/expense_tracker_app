@@ -27,14 +27,15 @@ class ExpenseItem extends StatelessWidget {
                 Row(
                   children: [
                     // displaying icon of category
-                    const Icon(Icons.category),
+                    Icon(categoryIcons[expense.category]),
 
                     // space between category and date
-                    const SizedBox(width: 2),
+                    const SizedBox(width: 12),
 
                     //adding date and time
                     Text(
-                      expense.date.toString(),
+                      // expense.getFormatteddate(),--> calling a method
+                      expense.formattedDate, // calling a getter
                     ),
                   ],
                 ),
