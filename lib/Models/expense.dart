@@ -21,7 +21,7 @@ const categoryIcons = {
 };
 
 class Expense {
-  Expense({ 
+  Expense({
     required this.date,
     required this.amount,
     required this.title,
@@ -39,7 +39,7 @@ class Expense {
     return formatter.format(date);
   }
 
-  getFormatteddate(){
+  getFormatteddate() {
     return formatter.format(date);
   }
 }
