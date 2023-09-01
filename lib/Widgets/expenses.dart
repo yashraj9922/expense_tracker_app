@@ -25,6 +25,15 @@ class _ExpensesState extends State<Expenses> {
         category: Category.work),
   ];
 
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return const Text("Hello Guys");
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,16 +41,16 @@ class _ExpensesState extends State<Expenses> {
         title: const Text("Expenses Tracker App"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _openAddExpenseOverlay,
             icon: const Icon(Icons.add_card),
           ),
         ],
       ),
       body: Column(
         children: [
-          // const SizedBox(height: 20),
+          const SizedBox(height: 20),
           const Text("The Chart"),
-          // const SizedBox(height: 20),
+          const SizedBox(height: 20),
           Expanded(
             child: ExpensesList(expenses: _registeredExpenses),
           ), // Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
