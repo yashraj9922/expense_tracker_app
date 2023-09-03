@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:expense_tracker_app/Models/expense.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key});
@@ -16,6 +17,8 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime? _selectedDate;
+  Category _selectedCategory = Category.leisure;
 
   @override
   void dispose() {
@@ -24,14 +27,18 @@ class _NewExpenseState extends State<NewExpense> {
     super.dispose();
   }
 
-  void _presentDatePicker() {
+  void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
-    showDatePicker(
+    final pickedDate = await showDatePicker(
         context: context,
         initialDate: now,
         firstDate: firstDate,
         lastDate: now);
+    // This will be executed only once pickedDate gets the value
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -45,9 +52,7 @@ class _NewExpenseState extends State<NewExpense> {
             // onChanged: _saveTitleInput,
             controller: _titleController,
             // maxLength: 50, --> maximum input text length
-
             // keyboardType: TextInputType.name, --> determines which virtual keyboard should be open when user taps the Textfield
-
             // adding label and decoration
             decoration: const InputDecoration(
               label: Text("Title"),
@@ -73,7 +78,12 @@ class _NewExpenseState extends State<NewExpense> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("Selected Date"),
+                    Text(
+                      _selectedDate == null
+                          ? "No date selected"
+                          : formatter.format(
+                              _selectedDate!), // ! added to force dart to assume that it wont be null
+                    ),
                     const SizedBox(width: 12),
                     IconButton(
                       onPressed: _presentDatePicker,
@@ -87,6 +97,29 @@ class _NewExpenseState extends State<NewExpense> {
           const SizedBox(height: 20),
           Row(
             children: [
+              DropdownButton(
+                value: _selectedCategory,
+                items: Category.values
+                    .map(
+                      (category) => DropdownMenuItem(
+                        // value(same used in onChanged) will stored internally
+                        value: category,
+                        child: Text(
+                          category.name.toUpperCase(),
+                        ),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  if (value == null) {
+                    return;
+                  }
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+              ),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
