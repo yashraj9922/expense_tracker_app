@@ -41,6 +41,37 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    final enteredAmount = double.tryParse(_amountController
+        .text); // tryParse('Hello') => null .... tryParse('1.23') => 1.23
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      // show error msg
+      showDialog(
+        context: context,
+        builder: (ctx) =>
+            // showing some alert msg
+            AlertDialog(
+          title: const Text("Invalid Input"),
+          content: const Text(
+              "Please make sure a valid Category, Amount, Date or Title is entered"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                //To close the Dialog msg
+                Navigator.pop(ctx); // ctx is context connected to Dialog
+              },
+              child: const Text("Close"),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -72,7 +103,7 @@ class _NewExpenseState extends State<NewExpense> {
                   ),
                 ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 10),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -80,11 +111,11 @@ class _NewExpenseState extends State<NewExpense> {
                   children: [
                     Text(
                       _selectedDate == null
-                          ? "No date selected"
+                          ? "None"
                           : formatter.format(
                               _selectedDate!), // ! added to force dart to assume that it wont be null
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     IconButton(
                       onPressed: _presentDatePicker,
                       icon: const Icon(Icons.calendar_month),
@@ -128,11 +159,7 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               const SizedBox(width: 20),
               ElevatedButton(
-                onPressed: () {
-                  // print(_enteredTitle);
-                  print(_titleController.text);
-                  print(_amountController.text);
-                },
+                onPressed: _submitExpenseData,
                 child: const Text("Submit"),
               ),
             ],
