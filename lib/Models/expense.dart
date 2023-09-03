@@ -39,7 +39,7 @@ class Expense {
     return formatter.format(date);
   }
 
-  getFormatteddate() {
-    return formatter.format(date);
-  }
+  // getFormatteddate() {
+  //   return formatter.format(date);
+  // }
 }
