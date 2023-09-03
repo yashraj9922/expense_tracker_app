@@ -28,9 +28,13 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      // creating full screen modal
+      // isScrollControlled: true,
       context: context,
       builder: (ctx) {
-        return NewExpense(onAddExpense: _addExpense,);
+        return NewExpense(
+          onAddExpense: _addExpense,
+        );
       },
     );
   }
@@ -38,6 +42,12 @@ class _ExpensesState extends State<Expenses> {
   void _addExpense(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.remove(expense);
     });
   }
 
@@ -59,7 +69,10 @@ class _ExpensesState extends State<Expenses> {
           const Text("The Chart"),
           const SizedBox(height: 20),
           Expanded(
-            child: ExpensesList(expenses: _registeredExpenses),
+            child: ExpensesList(
+              expenses: _registeredExpenses,
+              onRemoveExpense: _removeExpense,
+            ),
           ), // Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
         ],
       ),

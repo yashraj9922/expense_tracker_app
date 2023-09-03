@@ -80,6 +80,7 @@ class _NewExpenseState extends State<NewExpense> {
           title: _titleController.text,
           category: _selectedCategory),
     );
+    Navigator.pop(context);
   }
 
   Widget build(BuildContext context) {
