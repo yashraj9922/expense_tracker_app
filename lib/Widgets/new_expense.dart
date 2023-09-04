@@ -113,7 +113,7 @@ class _NewExpenseState extends State<NewExpense> {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 6),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -121,11 +121,11 @@ class _NewExpenseState extends State<NewExpense> {
                   children: [
                     Text(
                       _selectedDate == null
-                          ? "None"
+                          ? "No date Selected"
                           : formatter.format(
                               _selectedDate!), // ! added to force dart to assume that it wont be null
                     ),
-                    const SizedBox(width: 10),
+                    // const SizedBox(width: 10),
                     IconButton(
                       onPressed: _presentDatePicker,
                       icon: const Icon(Icons.calendar_month),

@@ -13,19 +13,19 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  late List<Expense> _registeredExpenses;
-  // final List<Expense> _registeredExpenses = [
-  //   Expense(
-  //       date: DateTime.now(),
-  //       amount: 100,
-  //       title: "title1",
-  //       category: Category.travel),
-  //   Expense(
-  //       date: DateTime.now(),
-  //       amount: 10.42,
-  //       title: "title2",
-  //       category: Category.work),
-  // ];
+  // late List<Expense> _registeredExpenses;
+  final List<Expense> _registeredExpenses = [
+    Expense(
+        date: DateTime.now(),
+        amount: 100,
+        title: "title1",
+        category: Category.travel),
+    Expense(
+        date: DateTime.now(),
+        amount: 10.42,
+        title: "title2",
+        category: Category.work),
+  ];
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
@@ -47,13 +47,41 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _removeExpense(Expense expense) {
+    final expenseIndex = _registeredExpenses.indexOf(expense);
     setState(() {
       _registeredExpenses.remove(expense);
     });
+    // clearing snackbars when multiples are removed suddenly
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text("Expense deleted"),
+        action: SnackBarAction(
+          label: "Undo",
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text("No Expenses added"),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        expenses: _registeredExpenses,
+        onRemoveExpense: _removeExpense,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Expenses Tracker App"),
@@ -70,10 +98,7 @@ class _ExpensesState extends State<Expenses> {
           const Text("The Chart"),
           const SizedBox(height: 20),
           Expanded(
-            child: ExpensesList(
-              expenses: _registeredExpenses,
-              onRemoveExpense: _removeExpense,
-            ),
+            child: mainContent,
           ), // Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
         ],
       ),
