@@ -138,6 +138,7 @@ class _NewExpenseState extends State<NewExpense> {
           const SizedBox(height: 20),
           Row(
             children: [
+              const SizedBox(width: 5),
               DropdownButton(
                 value: _selectedCategory,
                 items: Category.values
