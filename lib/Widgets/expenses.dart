@@ -30,6 +30,9 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      // making sure that Widgets do not overlap with mobile's physical features
+      useSafeArea: true,
+ 
       // creating full screen modal
       isScrollControlled: true,
       context: context,
@@ -118,7 +121,7 @@ class _ExpensesState extends State<Expenses> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: mainContent,
-                ),// Exapnded constraints the child to take as much width as available in the Row after sizing the other childern of Row
+                ), // Exapnded constraints the child to take as much width as available in the Row after sizing the other childern of Row
               ],
             ),
     );
