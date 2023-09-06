@@ -72,6 +72,9 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    // in order to make ui change on changing orientation of app....we need to first check width available
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = const Center(
       child: Text("No Expenses added"),
     );
@@ -93,16 +96,31 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          Chart(expenses: _registeredExpenses),
-          const SizedBox(height: 20),
-          Expanded(
-            child: mainContent,
-          ), // Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                const SizedBox(height: 20),
+                Chart(expenses: _registeredExpenses),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: mainContent,
+                ), // Expanded() --> takes all the available space in the screen....and it can be used only inside a Column() or Row()
+              ],
+            )
+          : Row(
+              // Row tries to get as much as width available
+              children: [
+                const SizedBox(width: 10),
+                // Chart(expenses: _registeredExpenses),// we wraped Chart in Container which has width: double.infinity assigned which allows Chart Widget to get as much as width available
+                Expanded(
+                  child: Chart(expenses: _registeredExpenses),
+                ), //hence when Parent Widget and child has this problem we wrap it with Expanded Widget making Flutter easy
+                const SizedBox(width: 10),
+                Expanded(
+                  child: mainContent,
+                ),// Exapnded constraints the child to take as much width as available in the Row after sizing the other childern of Row
+              ],
+            ),
     );
   }
 }
