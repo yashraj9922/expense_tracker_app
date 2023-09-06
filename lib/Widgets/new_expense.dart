@@ -84,98 +84,105 @@ class _NewExpenseState extends State<NewExpense> {
   }
 
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          // Taking input from user
-          TextField(
-            // onChanged: _saveTitleInput,
-            controller: _titleController,
-            // maxLength: 50, --> maximum input text length
-            // keyboardType: TextInputType.name, --> determines which virtual keyboard should be open when user taps the Textfield
-            // adding label and decoration
-            decoration: const InputDecoration(
-              label: Text("Title"),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Row(
+    final keyboardSpace = MediaQuery.of(context). viewInsets.bottom; // gets info of overlapping Widgets at bottom of the Screen
+
+    return SizedBox(
+      height: double.infinity,// using full sapce on screen when it is in landspace mode
+      child: SingleChildScrollView(// making it Scrollable when used in landspcae mode
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
+          child: Column(
             children: [
-              // wrap Textfield in Expanded as Textfield tries to ocuppy whole available space in flutter instead Expanded will restrict it till Screen Size
-              Expanded(
-                child: TextField(
-                  controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    prefixText: '\u{20B9} ',
-                    label: Text("Amount"),
-                  ),
+              // Taking input from user
+              TextField(
+                // onChanged: _saveTitleInput,
+                controller: _titleController,
+                // maxLength: 50, --> maximum input text length
+                // keyboardType: TextInputType.name, --> determines which virtual keyboard should be open when user taps the Textfield
+                // adding label and decoration
+                decoration: const InputDecoration(
+                  label: Text("Title"),
                 ),
               ),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      _selectedDate == null
-                          ? "No date Selected"
-                          : formatter.format(
-                              _selectedDate!), // ! added to force dart to assume that it wont be null
-                    ),
-                    // const SizedBox(width: 10),
-                    IconButton(
-                      onPressed: _presentDatePicker,
-                      icon: const Icon(Icons.calendar_month),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              const SizedBox(width: 5),
-              DropdownButton(
-                value: _selectedCategory,
-                items: Category.values
-                    .map(
-                      (category) => DropdownMenuItem(
-                        // value(same used in onChanged) will stored internally
-                        value: category,
-                        child: Text(
-                          category.name.toUpperCase(),
-                        ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  // wrap Textfield in Expanded as Textfield tries to ocuppy whole available space in flutter instead Expanded will restrict it till Screen Size
+                  Expanded(
+                    child: TextField(
+                      controller: _amountController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        prefixText: '\u{20B9} ',
+                        label: Text("Amount"),
                       ),
-                    )
-                    .toList(),
-                onChanged: (value) {
-                  if (value == null) {
-                    return;
-                  }
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          _selectedDate == null
+                              ? "No date Selected"
+                              : formatter.format(
+                                  _selectedDate!), // ! added to force dart to assume that it wont be null
+                        ),
+                        // const SizedBox(width: 10),
+                        IconButton(
+                          onPressed: _presentDatePicker,
+                          icon: const Icon(Icons.calendar_month),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const Spacer(),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Cancel"),
-              ),
-              const SizedBox(width: 20),
-              ElevatedButton(
-                onPressed: _submitExpenseData,
-                child: const Text("Submit"),
-              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const SizedBox(width: 5),
+                  DropdownButton(
+                    value: _selectedCategory,
+                    items: Category.values
+                        .map(
+                          (category) => DropdownMenuItem(
+                            // value(same used in onChanged) will stored internally
+                            value: category,
+                            child: Text(
+                              category.name.toUpperCase(),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        _selectedCategory = value;
+                      });
+                    },
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: _submitExpenseData,
+                    child: const Text("Submit"),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
