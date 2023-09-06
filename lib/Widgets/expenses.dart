@@ -32,7 +32,7 @@ class _ExpensesState extends State<Expenses> {
     showModalBottomSheet(
       // making sure that Widgets do not overlap with mobile's physical features
       useSafeArea: true,
- 
+
       // creating full screen modal
       isScrollControlled: true,
       context: context,
