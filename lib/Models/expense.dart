@@ -26,8 +26,8 @@ class Expense {
     required this.amount,
     required this.title,
     required this.category,
-  }) : id = uuid // in dart "initializer Lists" can be used to initialize class properties (like "id") with values that are not receieved by constructor function arguments
-            .v4(); // generates a random String id
+  }) : id = uuid.v4(); // generates a random String id
+  // in dart "initializer Lists" can be used to initialize class properties (like "id") with values that are not receieved by constructor function arguments
   final String id;
   final String title;
   final double amount;
@@ -39,6 +39,7 @@ class Expense {
     return formatter.format(date);
   }
 
+  //Method over getters
   // getFormatteddate() {
   //   return formatter.format(date);
   // }

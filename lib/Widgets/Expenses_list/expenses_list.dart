@@ -19,9 +19,8 @@ class ExpensesList extends StatelessWidget {
 
     //ListView.builder(); --> creates List only when they are visible or about to be visible and not when they are invisible
     return ListView.builder(
-      //
-      itemCount: expenses
-          .length, // itemCount refers to how many Lists items will be rendered
+      itemCount: expenses.length,
+      // itemCount refers to how many Lists items will be rendered
       itemBuilder: (ctx, index) {
         // return Text(expenses[index].title);
         return Dismissible(
@@ -30,8 +29,8 @@ class ExpensesList extends StatelessWidget {
             color: Theme.of(context).colorScheme.error,
             margin: const EdgeInsets.symmetric(vertical: 10),
           ),
-          key: ValueKey(
-              expenses[index]), // specifically identify a item to be deleted
+          key: ValueKey(expenses[index]),
+          // specifically identify a item to be deleted
           onDismissed: (direction) {
             onRemoveExpense(expenses[index]);
           },

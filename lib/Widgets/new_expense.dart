@@ -38,16 +38,17 @@ class _NewExpenseState extends State<NewExpense> {
         initialDate: now,
         firstDate: firstDate,
         lastDate: now);
-    // This will be executed only once pickedDate gets the value
+    // This will be executed only once...pickedDate gets the value
     setState(() {
       _selectedDate = pickedDate;
     });
   }
 
   void _submitExpenseData() {
-    final enteredAmount = double.tryParse(_amountController
-        .text); // tryParse('Hello') => null .... tryParse('1.23') => 1.23
+    final enteredAmount = double.tryParse(_amountController.text);
+    // tryParse('Hello') => null .... tryParse('1.23') => 1.23 --> Parse [source] as a double literal and return its value
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    // .trim() --> The string without any leading and trailing whitespace
     if (_titleController.text.trim().isEmpty ||
         amountIsInvalid ||
         _selectedDate == null) {
@@ -83,17 +84,17 @@ class _NewExpenseState extends State<NewExpense> {
     Navigator.pop(context);
   }
 
+  @override
   Widget build(BuildContext context) {
-    final keyboardSpace = MediaQuery.of(context)
-        .viewInsets
-        .bottom; // gets info of overlapping Widgets at bottom of the Screen
+    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
+    // gets info of overlapping Widgets at bottom of the Screen
     // return LayoutBuilder(
     //   // LayoutBuilder --> used to get info about the available space on screen....it is a Widget
     //   builder: ((context, constraints) {
     //     final width = constraints.maxWidth; // getting max width available...now we can check for orientation using if else and change the ui accordingly
     return SizedBox(
-      height: double
-          .infinity, // using full sapce on screen when it is in landspace mode
+      height: double.infinity,
+      // using full sapce on screen when it is in landspace mode
       child: SingleChildScrollView(
         // making it Scrollable when used in landspcae mode
         child: Padding(
@@ -134,8 +135,8 @@ class _NewExpenseState extends State<NewExpense> {
                         Text(
                           _selectedDate == null
                               ? "No date Selected"
-                              : formatter.format(
-                                  _selectedDate!), // ! added to force dart to assume that it wont be null
+                              : formatter.format(_selectedDate!),
+                          // ! added to force dart to assume that it wont be null
                         ),
                         // const SizedBox(width: 10),
                         IconButton(

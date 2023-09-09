@@ -2,9 +2,13 @@ import 'package:expense_tracker_app/Widgets/expenses.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 
-var kColourScheme = ColorScheme.fromSeed(seedColor: Colors.indigo);
-var kDarkColourScheme = ColorScheme.fromSeed(
-  seedColor: Colors.indigo,
+var kColourScheme = ColorScheme.fromSeed(
+    // Generate a ColorScheme derived from the given seedColor
+    seedColor: Colors.indigo,
+    brightness: Brightness.light);
+var kDarkColourScheme = const ColorScheme.dark(
+  // Create the recommended dark color scheme that matches the baseline Material color scheme
+  onPrimaryContainer: Colors.indigo,
   brightness: Brightness.dark,
 );
 
@@ -17,11 +21,11 @@ void main() {
   //   (value) =>
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark().copyWith(
         useMaterial3: true,
         colorScheme: kDarkColourScheme,
       ),
-      debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
         useMaterial3: true,
         colorScheme: kColourScheme,
