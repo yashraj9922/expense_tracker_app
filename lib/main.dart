@@ -2,18 +2,18 @@ import 'package:expense_tracker_app/Widgets/expenses.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 
+// Generate a ColorScheme derived from the given seedColor
 var kColourScheme = ColorScheme.fromSeed(
-    // Generate a ColorScheme derived from the given seedColor
-    seedColor: Colors.indigo,
-    brightness: Brightness.light);
+    seedColor: Colors.indigo, brightness: Brightness.light);
+
+// Create the recommended dark color scheme that matches the baseline Material color scheme 
 var kDarkColourScheme = const ColorScheme.dark(
-  // Create the recommended dark color scheme that matches the baseline Material color scheme
   onPrimaryContainer: Colors.indigo,
   brightness: Brightness.dark,
 );
 
 void main() {
-  // locking the orientation of App
+  // LOCKING THE ORIENTATION OF APP
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
@@ -22,6 +22,7 @@ void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
+      //The [ThemeData] to use when a 'dark mode' is requested by the system
       darkTheme: ThemeData.dark().copyWith(
         useMaterial3: true,
         colorScheme: kDarkColourScheme,

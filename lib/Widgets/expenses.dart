@@ -44,16 +44,20 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _addExpense(Expense expense) {
-    setState(() {
-      _registeredExpenses.add(expense);
-    });
+    setState(
+      () {
+        _registeredExpenses.add(expense);
+      },
+    );
   }
 
   void _removeExpense(Expense expense) {
     final expenseIndex = _registeredExpenses.indexOf(expense);
-    setState(() {
-      _registeredExpenses.remove(expense);
-    });
+    setState(
+      () {
+        _registeredExpenses.remove(expense);
+      },
+    );
     // clearing snackbars when multiples are removed suddenly
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
@@ -63,9 +67,11 @@ class _ExpensesState extends State<Expenses> {
         action: SnackBarAction(
           label: "Undo",
           onPressed: () {
-            setState(() {
-              _registeredExpenses.insert(expenseIndex, expense);
-            });
+            setState(
+              () {
+                _registeredExpenses.insert(expenseIndex, expense);
+              },
+            );
           },
         ),
       ),
